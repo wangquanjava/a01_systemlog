@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper    
+			PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.mapper.SystemLogMapper">
+	<select id="findSystemLogById" parameterType="String" resultType="SystemLog">
+		SELECT * FROM p_systemlog WHERE log_id = #{id}
+	</select>
+	
+	<select id="findSystemLogListByPage" resultType="SystemLog">
+		SELECT * FROM p_systemlog limit #{start},#{size}
+	</select>
+	
+	<delete id="deleteSystemLogById">
+		DELETE FROM p_systemlog WHERE log_id = #{id}
+	</delete>
+	
+	<select id="findByCriteria" resultType="SystemLog">
+		SELECT * 
+		FROM 
+			p_systemlog 
+		where
+			1 = 1
+ 	    	<if test="description != ''" >
+      			and description like #{description}
+    		</if> 
+ 	    	<if test="startTime != ''" >
+      			and log_date &gt;= #{startTime}
+    		</if> 
+ 	    	<if test="startTime != ''" >
+      			and log_date &lt;= #{startTime}
+    		</if> 
+	</select>
+	
+</mapper>
+
