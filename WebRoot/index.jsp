@@ -98,7 +98,7 @@ td {
 		var dateObject = new Date(date);
 		return dateObject.getFullYear()+"-"+dateObject.getMonth()+1+"-"+dateObject.getDate();
 	}
-	function search() {
+	function search(page) {
 		var description = $("#description").val();
 		var startTime = $("#startTime").val();
 		var endTime = $("#endTime").val();
@@ -106,13 +106,12 @@ td {
 		$.ajax({
 			url:'${pageContext.request.contextPath}'
 				+ "/systemLogController/findByCriteria.do?description="
-				+ description+"&startTime="+startTime+"&endTime="+endTime,
+				+ description+"&startTime="+startTime+"&endTime="+endTime+"&page="+page,
 			success : function(data) {
 				addTable(data);
 			},
 			
 		});
-		
 	}
 	
 </script>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.test.domain.QueryVO;
 import com.test.domain.SearchVO;
 import com.test.domain.SystemLog;
 import com.test.service.SystemLogService;
@@ -32,10 +33,18 @@ public class SystemLogController {
 	
 	
 	@RequestMapping("/querySystemLogListByPage")
-	public ResponseEntity<List<SystemLog>> querySystemLogListByPage(int page){
+	public ResponseEntity<QueryVO> querySystemLogListByPage(int page){
 		List<SystemLog> systemLogList = this.systemService.findSystemLogListByPage(page);
+		int totalIndex = this.systemService.findTotalIndex();
 		
-		return new ResponseEntity<List<SystemLog>>(systemLogList, HttpStatus.OK);
+		QueryVO queryVO = new QueryVO();
+		queryVO.setCurrentPage(page);
+		queryVO.setSystemLogList(systemLogList);
+		queryVO.setTotalIndex(totalIndex);
+		queryVO.setType(1);
+		queryVO.setTotalPage((int)Math.ceil(totalIndex/10));
+		
+		return new ResponseEntity<QueryVO>(queryVO, HttpStatus.OK);
 	}
 	
 	
@@ -47,10 +56,18 @@ public class SystemLogController {
 	}
 	
 	@RequestMapping("/findByCriteria")
-	public ResponseEntity<List<SystemLog>> findByCriteria(SearchVO searchVO){
+	public ResponseEntity<QueryVO> findByCriteria(SearchVO searchVO){
 		List<SystemLog> systemLogList = this.systemService.findByCriteria(searchVO);
+		int totalIndex = this.systemService.findTotalIndexByCriteria(searchVO);
 		
-		return new ResponseEntity<List<SystemLog>>(systemLogList, HttpStatus.OK);
+		QueryVO queryVO = new QueryVO();
+		queryVO.setCurrentPage(searchVO.getPage());
+		queryVO.setSystemLogList(systemLogList);
+		queryVO.setTotalIndex(totalIndex);
+		queryVO.setType(1);
+		queryVO.setTotalPage((int)Math.ceil(totalIndex/10));
+		
+		return new ResponseEntity<QueryVO>(queryVO, HttpStatus.OK);
 	}
 	
 	

@@ -25,7 +25,11 @@ public class SystemLogServiceImpl implements SystemLogService {
 	public List<SystemLog> findSystemLogListByPage(int page) {
 		return this.systemLogMapper.findSystemLogListByPage((page-1)*pageSize, pageSize);
 	}
-
+	
+	@Override
+	public int findTotalIndex() {
+		return this.systemLogMapper.findTotalIndex();
+	}
 	@Override
 	public void deleteSystemLogById(String id) {
 		this.systemLogMapper.deleteSystemLogById(id);
@@ -33,8 +37,14 @@ public class SystemLogServiceImpl implements SystemLogService {
 
 	@Override
 	public List<SystemLog> findByCriteria(SearchVO searchVO) {
-		return this.systemLogMapper.findByCriteria(("%"+searchVO.getDescription()+"%").getBytes(),searchVO.getStartTime(),searchVO.getEndTime());
+		return this.systemLogMapper.findByCriteria(searchVO.getDescription().getBytes(),searchVO.getStartTime(),searchVO.getEndTime(),(searchVO.getPage()-1)*pageSize,pageSize);
 	}
+
+	@Override
+	public int findTotalIndexByCriteria(SearchVO searchVO) {
+		return this.systemLogMapper.findTotalIndexByCriteria(searchVO.getDescription().getBytes(),searchVO.getStartTime(),searchVO.getEndTime());
+	}
+
 
 
 }

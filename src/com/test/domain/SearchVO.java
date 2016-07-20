@@ -12,7 +12,8 @@ public class SearchVO {
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endTime;
-
+	
+	private int page;
 	public String getDescription() {
 		return description;
 	}
@@ -35,6 +36,14 @@ public class SearchVO {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
 	}
 	
 	

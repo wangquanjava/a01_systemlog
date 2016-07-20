@@ -12,4 +12,6 @@ public interface SystemLogService {
 	public List<SystemLog> findSystemLogListByPage(int page);
 	public void deleteSystemLogById(String id);
 	public List<SystemLog> findByCriteria(SearchVO searchVO);
+	public int findTotalIndex();
+	public int findTotalIndexByCriteria(SearchVO searchVO);
 }
