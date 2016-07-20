@@ -1,7 +1,7 @@
 package com.test.service.impl;
 
-import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import com.test.service.SystemLogService;
 public class SystemLogServiceImpl implements SystemLogService {
 	@Autowired
 	private SystemLogMapper systemLogMapper;
-	private static final int pageSize = 10;
+	private static final int pageSize = Integer.parseInt(ResourceBundle.getBundle("env").getString("pageSize"));
 	
 	@Override
 	public SystemLog findSystemLogById(String id) {

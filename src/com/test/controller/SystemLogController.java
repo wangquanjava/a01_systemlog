@@ -1,12 +1,12 @@
 package com.test.controller;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.test.domain.QueryVO;
@@ -23,6 +23,7 @@ import com.test.service.SystemLogService;
 public class SystemLogController {
 	@Autowired
 	private SystemLogService systemService;
+	private static int pageSize = Integer.parseInt(ResourceBundle.getBundle("env").getString("pageSize"));
 	
 	@RequestMapping("/querySystemLogById")
 	public ResponseEntity<SystemLog> querySystemLogById(String id){
@@ -42,7 +43,7 @@ public class SystemLogController {
 		queryVO.setSystemLogList(systemLogList);
 		queryVO.setTotalIndex(totalIndex);
 		queryVO.setType(1);
-		queryVO.setTotalPage((int)Math.ceil(totalIndex/10));
+		queryVO.setTotalPage((int)Math.ceil(totalIndex/pageSize));
 		
 		return new ResponseEntity<QueryVO>(queryVO, HttpStatus.OK);
 	}
@@ -64,8 +65,8 @@ public class SystemLogController {
 		queryVO.setCurrentPage(searchVO.getPage());
 		queryVO.setSystemLogList(systemLogList);
 		queryVO.setTotalIndex(totalIndex);
-		queryVO.setType(1);
-		queryVO.setTotalPage((int)Math.ceil(totalIndex/10));
+		queryVO.setType(2);
+		queryVO.setTotalPage((int)Math.ceil(totalIndex/pageSize));
 		
 		return new ResponseEntity<QueryVO>(queryVO, HttpStatus.OK);
 	}
