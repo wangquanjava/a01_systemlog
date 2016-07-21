@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="systemlog">
+    <wb-module deploy-name="g01_systemlog">
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
-        <property name="context-root" value="systemlog"/>
-        <property name="java-output-path" value="/systemlog/WebRoot/WEB-INF/classes"/>
+        <property name="java-output-path" value="/g01_systemlog/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="g01_systemlog"/>
     </wb-module>
 </project-modules>
