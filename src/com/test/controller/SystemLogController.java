@@ -43,7 +43,7 @@ public class SystemLogController {
 		queryVO.setSystemLogList(systemLogList);
 		queryVO.setTotalIndex(totalIndex);
 		queryVO.setType(1);
-		queryVO.setTotalPage((int)Math.ceil(totalIndex/pageSize));
+		queryVO.setTotalPage((totalIndex+pageSize-1)/pageSize);
 		
 		return new ResponseEntity<QueryVO>(queryVO, HttpStatus.OK);
 	}
@@ -66,7 +66,7 @@ public class SystemLogController {
 		queryVO.setSystemLogList(systemLogList);
 		queryVO.setTotalIndex(totalIndex);
 		queryVO.setType(2);
-		queryVO.setTotalPage((int)Math.ceil(totalIndex/pageSize));
+		queryVO.setTotalPage((totalIndex+pageSize-1)/pageSize);
 		
 		return new ResponseEntity<QueryVO>(queryVO, HttpStatus.OK);
 	}

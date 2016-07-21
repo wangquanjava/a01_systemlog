@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-@Table(name = "p_systemlog")
+@Table(name = "b_systemlog")
 public class SystemLog {
     @Id
 	private String logId;
