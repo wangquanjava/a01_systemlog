@@ -20,8 +20,6 @@
 			<th>操作</th>
 		</tr>
 	</table>
-	<a href="javascript:void()" class="page_up" value="0">上一页</a>
-	<a href="javascript:void()" class="page_down" value="0">下一页</a>
 </body>
 描述<input id="description" type="text">
 开始时间<input id="startTime" type="text">
@@ -46,29 +44,38 @@ td {
 	border: 1px solid black;
 	text-align: center;
 }
+.switchPage_no{
+	display:none;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
-		getData(1);
-		$("#search").click(search);
-	})
-	
-	function getData(page) {
-		$.ajax({
-			url : '${pageContext.request.contextPath }'
-					+ "/systemLogController/querySystemLogListByPage.do?page="
-					+ page,
-			success : function(data) {
-				addTable(data);
-			},
-			dataType : "json"
+		query(1);
+		$("#search").click(function() {
+			search(1);
 		});
+	})
+	function addEvent() {
+		//给页面中的删除按钮增加事件
+		$(".delete").click(deleteLog);
+		
+		//给页面的中的上下页增加事件
+		
+		$(".switchPage").click(function() {
+			if($(this).attr("type")==1){
+				query($(this).attr("page"));
+			}else if($(this).attr("type")==2){
+				search($(this).attr("page"));
+			}
+		});
+		
 	}
+
 	function addTable(data) {
-		$("tr[class^='data_']").remove();
+		$("td").remove();
 		var systemLogTable = $("#systemLogTable");
-		for (i in data) {
-			var oneLine = data[i]
+		for (i in data.systemLogList) {
+			var oneLine = data.systemLogList[i]
 			var html = "";
 			html = html.concat("<tr class='data_"+oneLine.logId+"'>");
 			html = html.concat("<td class='logId'>" + oneLine.logId + "</td>");
@@ -80,8 +87,8 @@ td {
 			html = html.concat("</tr>");
 			systemLogTable.append(html);
 		}
-		
-		$(".delete").click(deleteLog);
+		systemLogTable.append(data.pageHtml);
+		addEvent()
 	}
 	function deleteLog() {
 		var logId = $(this).closest("tr").find(".logId").html();
@@ -90,14 +97,16 @@ td {
 					+ "/systemLogController/deleteSystemLogById.do?id="
 					+ logId,
 			success : function(data) {
-				window.location.reload();
+				$(".data_"+logId).remove();
 			},
 		});
 	}
 	function dataConvert(date) {
 		var dateObject = new Date(date);
-		return dateObject.getFullYear()+"-"+dateObject.getMonth()+1+"-"+dateObject.getDate();
+		return dateObject.getFullYear()+"-"+(dateObject.getMonth()+1)+"-"+dateObject.getDate();
 	}
+	
+	
 	function search(page) {
 		var description = $("#description").val();
 		var startTime = $("#startTime").val();
@@ -107,12 +116,22 @@ td {
 			url:'${pageContext.request.contextPath}'
 				+ "/systemLogController/findByCriteria.do?description="
 				+ description+"&startTime="+startTime+"&endTime="+endTime+"&page="+page,
+			dataType:"json",
 			success : function(data) {
 				addTable(data);
-			},
-			
+			}
 		});
 	}
-	
+	function query(page) {
+		$.ajax({
+			url : '${pageContext.request.contextPath }'
+					+ "/systemLogController/querySystemLogListByPage.do?page="
+					+ page,
+			dataType : "json",
+			success : function(data) {
+				addTable(data);
+			}
+		});
+	}
 </script>
 </html>

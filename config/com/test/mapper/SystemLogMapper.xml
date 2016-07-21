@@ -5,24 +5,24 @@
 
 <mapper namespace="com.test.mapper.SystemLogMapper">
 	<select id="findSystemLogById" parameterType="String" resultType="SystemLog">
-		SELECT * FROM p_systemlog WHERE log_id = #{id}
+		SELECT * FROM b_systemlog WHERE log_id = #{id}
 	</select>
 	<select id="findTotalIndex" resultType="int">
-		SELECT count(*) FROM p_systemlog
+		SELECT count(*) FROM b_systemlog
 	</select>
 	
 	<select id="findSystemLogListByPage" resultType="SystemLog">
-		SELECT * FROM p_systemlog limit #{start},#{size}
+		SELECT * FROM b_systemlog limit #{start},#{size}
 	</select>
 	
 	<delete id="deleteSystemLogById">
-		DELETE FROM p_systemlog WHERE log_id = #{id}
+		DELETE FROM b_systemlog WHERE log_id = #{id}
 	</delete>
 	
 	<select id="findByCriteria" resultType="SystemLog">
 		SELECT * 
 		FROM 
-			p_systemlog 
+			b_systemlog 
 		where
 			1 = 1
  	    	<if test="description.length > 0">
@@ -40,7 +40,7 @@
 	<select id="findTotalIndexByCriteria" resultType="int">
 		SELECT count(*) 
 		FROM 
-			p_systemlog 
+			b_systemlog 
 		where
 			1 = 1
  	    	<if test="description.length > 0">

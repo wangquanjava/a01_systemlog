@@ -22,12 +22,12 @@ public interface SystemLogMapper {
 	public SystemLog findSystemLogById(String id);
 	
 	public List<SystemLog> findSystemLogListByPage(@Param("start")int start,@Param("size")int size);
+	public int findTotalIndex();
 
 	public void deleteSystemLogById(String id);
 
+
+
 	public List<SystemLog> findByCriteria(@Param("description")byte[] description,@Param("startTime")Date startTime,@Param("endTime")Date endTime, @Param("start")int start, @Param("size")int size);
-
-	public int findTotalIndex();
-
-	public int findTotalIndexByCriteria(byte[] bytes, Date startTime, Date endTime);
+	public int findTotalIndexByCriteria(@Param("description")byte[] description, @Param("startTime")Date startTime, @Param("endTime")Date endTime);
 }

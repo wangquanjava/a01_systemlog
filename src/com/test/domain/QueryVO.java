@@ -43,7 +43,28 @@ public class QueryVO {
 		this.type = type;
 	}
 	public String getPageHtml() {
-		return pageHtml;
+		int prePage = this.currentPage-1;
+		int nextPage = this.currentPage+1;
+		
+		this.pageHtml = "<tr><td>";
+		
+		if (this.currentPage-1 > 0) {
+			this.pageHtml += "<a href='javascript:void(0)' type='"+this.type+"' page='"+prePage+"' class='switchPage'>上一页</a>";
+		}else{
+			this.pageHtml += "<a href='javascript:void(0)' type='"+this.type+"' page='"+prePage+"' class='switchPage_no'>上一页</a>";
+		}
+		
+		this.pageHtml += this.currentPage+"/"+this.totalPage+" 共"+this.totalIndex+"条";
+		
+		if (this.currentPage+1 <= this.totalPage) {
+			this.pageHtml += "<a href='javascript:void(0)' type='"+this.type+"' page='"+nextPage+"' class='switchPage'>下一页</a>";
+		}else{
+			this.pageHtml += "<a href='javascript:void(0)' type='"+this.type+"' page='"+nextPage+"' class='switchPage_no'>下一页</a>";
+		}
+		
+		this.pageHtml += "</td></tr>";
+		
+		return this.pageHtml;
 	}
 	public void setPageHtml(String pageHtml) {
 		this.pageHtml = pageHtml;
